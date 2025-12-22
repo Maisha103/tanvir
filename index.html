@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Tanvir | Creator & Learner</title>
+    <meta name="description" content="Portfolio of Md Tanvir - Student, Creator, and Learner.">
+    
+    <!-- Google Fonts: Outfit for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (Lightweight icon library) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #FAFAFA;
+            --surface-color: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --accent-color: #475569; /* Slate Blue/Grey - Sophisticated & Minimal */
+            --accent-hover: #1e293b;
+            --border-color: #E5E7EB;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+        button, .btn { font-family: inherit; cursor: pointer; border: none; outline: none; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; font-weight: 600; }
+        p { color: var(--text-muted); font-size: 1.05rem; }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-padding { padding: 6rem 0; }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .menu-toggle { display: none; font-size: 1.5rem; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 4rem; /* offset for fixed nav */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-accent {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(71, 85, 105, 0.05) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text { max-width: 500px; }
+        
+        .tagline {
+            display: inline-block;
+            background: #E2E8F0;
+            color: var(--accent-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-btn-group {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            background: white;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            aspect-ratio: 3/4; /* Portrait optimization */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .hero-image-wrapper:hover .hero-img { transform: scale(1.03); }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about { background-color: var(--surface-color); }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+        }
+
+        .about-text p { margin-bottom: 1.5rem; font-size: 1.15rem; color: #334155; }
+
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-color);
+        }
+
+        .card-icon {
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+        }
+
+        /* --- PHOTOS SECTION --- */
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .photo-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            aspect-ratio: 4/5;
+            group;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .photo-card:hover img { transform: scale(1.05); }
+        .photo-card:hover .photo-overlay { opacity: 1; transform: translateY(0); }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox.active { opacity: 1; pointer-events: auto; }
+        .lightbox img { max-height: 90vh; max-width: 90vw; border-radius: 8px; }
+        .lightbox-close {
+            position: absolute; top: 2rem; right: 2rem;
+            color: white; font-size: 2rem; cursor: pointer;
+        }
+
+        /* --- PROJECTS (Clean Cards) --- */
+        .project-card {
+            background: var(--surface-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 250px;
+            transition: var(--transition);
+        }
+
+        .project-card:hover { border-color: var(--accent-color); box-shadow: var(--shadow-md); }
+
+        .status-badge {
+            background: #F1F5F9;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact { background: var(--surface-color); }
+        
+        .contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--text-main);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0; right: 0;
+                height: 100vh;
+                width: 70%;
+                background: white;
+                flex-direction: column;
+                padding: 6rem 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+            }
+
+            .nav-links.active { transform: translateX(0); }
+            
+            .menu-toggle { display: block; z-index: 1001; }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero-image-wrapper { width: 80%; margin: 0 auto; }
+            .hero-btn-group { justify-content: center; }
+
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">Tanvir.</a>
+            <div class="menu-toggle">
+                <i data-lucide="menu"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#photos" class="nav-link">Photos</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero section-padding">
+        <div class="hero-bg-accent"></div>
+        <div class="container hero-content">
+            <div class="hero-text reveal">
+                <span class="tagline">Student | Creator | Learner</span>
+                <h1>Hello, I’m <br> Md Tanvir.</h1>
+                <p style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                    Capturing moments, learning daily, and sharing positivity. Welcome to my personal space.
+                </p>
+                <div class="hero-btn-group">
+                    <a href="#photos" class="btn btn-primary">
+                        View Photos <i data-lucide="arrow-right" size="18"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+            <!-- HERO IMAGE: Using one of the uploaded files -->
+            <div class="hero-image-wrapper reveal">
+                <img src="https://pirphelsdscrwjdcvlpn.supabase.co/storage/v1/object/public/publicnn/518416061_1929314301196756_8163656233618797875_n.jpg" alt="Md Tanvir Portrait" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <h2>About Me</h2>
+                    <p>I’m Tanvir. I enjoy learning, creating, and sharing things that feel positive and useful. I like calm, clean design, simple routines, and working on my skills little by little.</p>
+                    <p>You’ll often find me enjoying nature, taking photos, or planning new content. My goal is to keep growing — as a person and as a creator — and to use my time on things that have meaning.</p>
+                </div>
+                
+                <div class="info-cards reveal">
+                    <div class="info-card">
+                        <div class="card-icon"><i data-lucide="heart"></i></div>
+                        <h3>Interests</h3>
+                        <p style="font-size: 0.9rem;">Photography, Nature, Minimalism</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i data-lucide="target"></i></div>
+                        <h3>Goals</h3>
+                        <p style="font-size: 0.9rem;">Consistent Content Creation</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon"><i data-lucide="book-open"></i></div>
+                        <h3>Learning</h3>
+                        <p style="font-size: 0.9rem;">Video Editing & Design</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTOS SECTION (GALLERY) -->
+    <section id="photos" class="section-padding">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 3rem;">Featured Shots</h2>
+            <div class="photos-grid reveal">
+                
+                <!-- Photo 1 -->
+                <div class="photo-card" onclick="openLightbox(this)">
+                    <img src="https://pirphelsdscrwjdcvlpn.supabase.co/storage/v1/object/public/publicnn/518416061_1929314301196756_8163656233618797875_n.jpg" alt="Tanvir standing in a green field">
+                    <div class="photo-overlay">
+                        <h3>Green Fields</h3>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Nature & Calm</p>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="photo-card" onclick="openLightbox(this)">
+                    <img src="https://pirphelsdscrwjdcvlpn.supabase.co/storage/v1/object/public/publicnn/534762303_1952686045526248_2733266711232288455_n.jpg" alt="Portrait of Tanvir outdoors near trees">
+                    <div class="photo-overlay">
+                        <h3>Outdoor Portrait</h3>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Natural Light</p>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="photo-card" onclick="openLightbox(this)">
+                    <img src="https://pirphelsdscrwjdcvlpn.supabase.co/storage/v1/object/public/publicnn/571581764_2017183125743206_3007308734739198789_n.jpg" alt="Tanvir sitting on a boat holding an umbrella">
+                    <div class="photo-overlay">
+                        <h3>Serenity</h3>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Moments of Peace</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION (Placeholder) -->
+    <section id="projects" class="section-padding" style="background-color: var(--surface-color);">
+        <div class="container">
+            <h2 class="reveal" style="text-align: center; margin-bottom: 3rem;">Recent Projects</h2>
+            <div class="photos-grid reveal"> <!-- Reusing grid layout -->
+                <div class="project-card">
+                    <span class="status-badge">In Progress</span>
+                    <h3>Content Strategy</h3>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Planning a new YouTube series on productivity.</p>
+                </div>
+                <div class="project-card">
+                    <span class="status-badge">Coming Soon</span>
+                    <h3>Photography Portfolio</h3>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Curating a collection of nature shots.</p>
+                </div>
+                <div class="project-card">
+                    <span class="status-badge">Idea</span>
+                    <h3>Digital Journal</h3>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">A blog sharing daily learnings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact section-padding">
+        <div class="container contact-wrapper reveal">
+            <h2>Let's Connect</h2>
+            <p>I’m always open to discussing new ideas, collaborations, or just saying hi. Reach out to me on social media.</p>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/mdtanvir.tanvir.1884" target="_blank" class="social-icon" aria-label="Facebook">
+                    <i data-lucide="facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/tanvir77630/" target="_blank" class="social-icon" aria-label="Instagram">
+                    <i data-lucide="instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@Islamicnest440" target="_blank" class="social-icon" aria-label="YouTube">
+                    <i data-lucide="youtube"></i>
+                </a>
+                <a href="mailto:example@email.com" class="social-icon" aria-label="Email">
+                    <i data-lucide="mail"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Md Tanvir. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX ELEMENT -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="Full screen view">
+    </div>
+
+    <script>
+        // --- Initialize Icons ---
+        lucide.createIcons();
+
+        // --- Set Current Year ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Mobile Menu Toggle ---
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // --- Scroll Animations (Intersection Observer) ---
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- Lightbox Functionality ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        // Close lightbox on clicking outside image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
